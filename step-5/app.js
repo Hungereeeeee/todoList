@@ -45,6 +45,11 @@ var app=new Vue({
         this.currentUser=this.getCurrentUser()
         this.fetchTodos()
     },
+    watch:{
+        // todoList.done:function(){
+        //     this.updateTodos();
+        // }
+    },
     methods:{
         fetchTodos: function(){
             if(this.currentUser){
@@ -87,7 +92,7 @@ var app=new Vue({
             avTodos.save().then((todo) => {
                 // 成功保存之后，执行其他逻辑.
                 this.todoList.id = todo.id // 一定要记得把 id 挂到 this.todoList 上，否则下次就不会调用 updateTodos 了
-                alert('保存成功')
+                console.log('保存成功')
             }, function (error) {
                 // 异常处理
                 alert('保存失败')
@@ -155,8 +160,10 @@ var app=new Vue({
             this.currentUser=null
             window.location.reload()
         },
-        test:function(){
-            console.log(this.formData.username)
+        finish:function (todo) {
+            let index=this.todoList.indexOf(todo)
+            this.todoList[index].done=!this.todoList[index].done;
+            this.updateTodos()
         }
     }
 })

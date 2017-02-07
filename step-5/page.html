@@ -51,7 +51,7 @@
         </div>
         <ol class="todos">
           <li v-cloak v-for="todo in todoList" class="clearfix">
-            <input type="checkbox" v-model="todo.done">
+            <input type="checkbox" v-model="todo.done" @click="finish(todo)">
             <span class="content">{{ todo.title }}</span>
 
             <span v-if="todo.done">已完成</span>
