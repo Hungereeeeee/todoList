@@ -16,6 +16,9 @@ ol,li{
     display: table;
     clear:both;
 }
+[v-cloak] {
+    display: none;
+}
 /*=================================================================*/
 header{
     background-color: #080808;
