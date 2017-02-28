@@ -1,6 +1,5 @@
 
 import Vue from 'vue'
-import './style.css'
 import AV from 'leancloud-storage'
 
 var APP_ID = 'duexCuHy6EXqvmhiq0Kr1MvG-gzGzoHsz';
@@ -25,23 +24,6 @@ var app=new Vue({
         msg:''
 	},
     created:function(){
-        window.onbeforeunload = ()=>{
-            let inputDataStr=JSON.stringify(this.newTodo)
-            window.localStorage.setItem('myNewTo',inputDataStr)
-
-            let signDataStr=JSON.stringify(this.msg)
-            window.localStorage.setItem('mySign',signDataStr)
-        }
-
-
-        let oldInputStr=window.localStorage.getItem('myNewTo')
-        let oldInputData=JSON.parse(oldInputStr)
-        this.newTodo=oldInputData || ''
-
-        let oldSign=window.localStorage.getItem('mySign')
-        let oldSingData=JSON.parse(oldSign)
-        this.msg=oldSingData||''
-
         this.currentUser=this.getCurrentUser()
         this.fetchTodos()
     },
@@ -53,6 +35,7 @@ var app=new Vue({
     methods:{
         fetchTodos: function(){
             if(this.currentUser){
+                this.msg= this.currentUser.username;
                 var query = new AV.Query('AllTodos');
                 query.find()
                     .then((todos) => {
@@ -68,7 +51,6 @@ var app=new Vue({
         },
         updateTodos:function(){
             let listDataStr=JSON.stringify(this.todoList)
-            console.log(listDataStr)
             let AVTodos = AV.Object.createWithoutData('AllTodos',this.todoList.id);
             AVTodos.set('content',listDataStr)
             AVTodos.save().then(() => {
@@ -108,7 +90,6 @@ var app=new Vue({
 	    addTodo:function(){
 	        let date=new Date()
             let time = setTime(date)
-            console.log(this.newTodo)
             if(this.newTodo != ''){
                 this.todoList.push({
                     title:this.newTodo,
@@ -116,7 +97,6 @@ var app=new Vue({
                     done: false
                 })
             }
-            console.log(this.createdAt)
             this.newTodo=''
             this.saveOrUpdateTodos()
         },
@@ -133,17 +113,17 @@ var app=new Vue({
                 this.currentUser = this.getCurrentUser()
                 this.msg=loginedUser.getUsername()
             }, function (error) {
-                alert('注册失败')
+                alert(error)
             });
         },
         login:function(){
             AV.User.logIn(this.formData.username, this.formData.password).then((loginedUser) => {
                 this.currentUser = this.getCurrentUser()
                 console.log(loginedUser.getUsername())
-                this.msg=this.formData.username
+                this.msg=loginedUser.getUsername()
                 this.fetchTodos()
             }, function (error) {
-                alert('登录失败')
+                alert(error)
             });
         },
         getCurrentUser:function(){

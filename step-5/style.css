@@ -2,79 +2,81 @@ html,body{
     margin: 0;
     padding:0;
     font-size:10px;
+    width: 100%;
 }
 p{
     margin: 0;
     padding: 0;
 }
-
+ol,li{
+    list-style: none;
+    padding: 0;
+}
 .clearfix:after{
     content: '';
     display: table;
     clear:both;
 }
-section.container{
-    font-size: 1.6rem;
-    width: 80rem;
-    margin: 10rem auto;
-}
-div.newTask input{
-    display: inline-block;
-    width: 80rem;
-    height:4rem;
-}
-section.container span{
-    display: inline-block;
-    width:10rem;
-}
-section.container .content{
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 30rem;
+/*=================================================================*/
+header{
+    background-color: #080808;
+    color: white;
     vertical-align: bottom;
+    padding: 5px 10px;
 }
-section.container .todos>li{
-    vertical-align: bottom;
-    margin-left: -1.6rem;
-    position: relative;
-    margin-top:1rem;
+header>span{
+    line-height: 30px;
+    float: left;
 }
-section.container .todos>li input{
-    display: inline-block;
-}
-section.container .todos>li input:checked~span{
-    color:gray;
-}
-section.container .todos>li input:checked+span:before{
-    content:'';
-    width:82rem;
-    position: absolute;
-    border-top:2px solid gray;
-    top: 50%;
-    bottom:50%;
-    left:-3rem;
-}
-section.container .todos>li .time{
-    display: inline-block;
-    width: 30rem;
-}
-section.container button{
-    display: inline-block;
-    width:2rem;
-    height:2rem;
-    padding: 0;
+header>.btn{
     float: right;
+}
+section#todo{
+    display: flex;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+}
+section#todo ol{
+    width: 75%;
+}
+section#todo ol>li{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+section .newTask{
+    background-color: #3a3c40;
+    min-height: 100vh;
+    padding: 20px;
+    width: 25%;
     text-align: center;
 }
-[v-cloak] {
-    display: none;
+section textarea{
+    width: 100%;
+    height: 100px;
+    transition: height 1s;
+    border-radius: 5px;
 }
-#todo>p{
-    margin-bottom:2rem;
+section textarea:focus{
+    height: 300px;
 }
-#todo>p .logout{
-    width:4rem;
+.todos .unfinished{
+    background-color: rgb(240,173,78);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    color: #fff;
+}
+.todos .complete{
+    background-color: rgb(92,184,92);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    color: #fff;
+}
+.todos .complete~span{
+    color: gray;
 }
 /*signInAndSignUp*/
 section.signIn-SignUp{
@@ -100,6 +102,9 @@ section.signIn-SignUp label{
      line-height: 4rem;
      border-right:.1rem solid white;
  }
+section.signIn-SignUp label:active{
+    color: red;
+}
 section.signIn-SignUp label[for=login]{
     border-right:none
 }
